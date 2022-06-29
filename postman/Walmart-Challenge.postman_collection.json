@@ -1,0 +1,225 @@
+{
+	"info": {
+		"_postman_id": "eb68bc5c-c172-41d5-aafc-3dc28fc11c54",
+		"name": "Walmart-Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20322042"
+	},
+	"item": [
+		{
+			"name": "Producto",
+			"item": [
+				{
+					"name": "Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_backend}}/api/product?page=2",
+							"host": [
+								"{{url_backend}}"
+							],
+							"path": [
+								"api",
+								"product"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "search",
+									"value": "daad",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "3",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_backend}}/api/product/58",
+							"host": [
+								"{{url_backend}}"
+							],
+							"path": [
+								"api",
+								"product",
+								"58"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Google Drive",
+			"item": [
+				{
+					"name": "Google Drive Get",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+								"type": "text"
+							},
+							{
+								"key": "accept-encoding",
+								"value": "gzip, deflate, br",
+								"type": "text"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url_backend}}/api/gdrive?imgUrl=https://img1.recipesandcook.com/uploads/20211124/6ab4f7a9c54bc3cbd7c911ec2a2738c4/d2ea45db.jpg",
+							"host": [
+								"{{url_backend}}"
+							],
+							"path": [
+								"api",
+								"gdrive"
+							],
+							"query": [
+								{
+									"key": "imgUrl",
+									"value": "https://img1.recipesandcook.com/uploads/20211124/6ab4f7a9c54bc3cbd7c911ec2a2738c4/d2ea45db.jpg"
+								},
+								{
+									"key": "imgUrl",
+									"value": "https://www.normaeditorial.com/upload/media/albumes/0001/19/a62f366fb2a0a4526d1e9eef2983ddc0042a8e3b.jpeg",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Google Drive Download",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+								"type": "text"
+							},
+							{
+								"key": "accept-encoding",
+								"value": "gzip, deflate, br",
+								"type": "text"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url_backend}}/api/gdrive/download?imgUrl=https://img1.recipesandcook.com/uploads/20211124/6ab4f7a9c54bc3cbd7c911ec2a2738c4/d2ea45db.jpg",
+							"host": [
+								"{{url_backend}}"
+							],
+							"path": [
+								"api",
+								"gdrive",
+								"download"
+							],
+							"query": [
+								{
+									"key": "imgUrl",
+									"value": "https://www.normaeditorial.com/upload/media/albumes/0001/19/a62f366fb2a0a4526d1e9eef2983ddc0042a8e3b.jpeg",
+									"disabled": true
+								},
+								{
+									"key": "imgUrl",
+									"value": "https://img1.recipesandcook.com/uploads/20211124/6ab4f7a9c54bc3cbd7c911ec2a2738c4/d2ea45db.jpg"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Server",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_backend}}/",
+					"host": [
+						"{{url_backend}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_backend}}/api",
+					"host": [
+						"{{url_backend}}"
+					],
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url_backend",
+			"value": "http://127.0.0.1:3001",
+			"type": "string"
+		}
+	]
+}
