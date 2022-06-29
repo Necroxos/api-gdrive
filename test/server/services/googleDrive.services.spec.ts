@@ -1,6 +1,10 @@
 import driveService from '../../../src/server/services/googleDrive.service';
 import fs from 'fs';
 
+jest.mock('../../../src/config', () => ({
+    loadDriveConfig: () => {}
+}));
+
 describe('GoogleDriveService', () => {
 
     beforeEach(() => {
