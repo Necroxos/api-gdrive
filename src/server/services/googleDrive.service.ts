@@ -21,9 +21,7 @@ class GoogleDriveService {
         const RANDOM_UA = randomUseragent.getRandom();
         const UA = RANDOM_UA || DEAFULT_UA;
 
-        return axios({
-            method: 'get',
-            url,
+        return axios.get(url, {
             responseType: 'stream',
             headers: { 'user-agent': UA }
         });
@@ -51,12 +49,12 @@ class GoogleDriveService {
      * Search id of folder on google drive
      * @param {drive_v3.Drive} service connection to google drive account
      * @param {string} mangaFolder manga folder were we should get or create chapter folder
-     * @param {string} chapterFolder chapter folder were we should upload images
+     * @param {number} chapter episode to concat at chapter folder were we should upload images
      * @returns {string} with the google drive ID for the folder
      */
-    private async searchFolderToUpload(service: drive_v3.Drive, mangaFolder: string, chapterFolder: string): Promise<string> {
+    private async searchFolderToUpload(service: drive_v3.Drive, mangaFolder: string, chapter: number): Promise<string> {
         mangaFolder = capitalizeAll(mangaFolder);
-        chapterFolder = capitalizeAll(chapterFolder);
+        const chapterFolder = `Chapter ${chapter}`;
         let folder: PartialDriveFile | null;
         let parentId: string;
 
@@ -131,7 +129,7 @@ class GoogleDriveService {
      * @param {string} imageUrl image original url
      * @returns {...} with a message of success download
      */
-    downloadFile = async (imageUrl: string): Promise<{ message: string }> => {
+    downloadImage = async (imageUrl: string): Promise<{ message: string }> => {
         const writer = createWriteStream(`${__dirname}/../../../descargas/img.jpg`);
         const response = await this.getImage(imageUrl);
         // Save file on local
@@ -150,7 +148,7 @@ class GoogleDriveService {
      * @param {string} chapter name of chapter for get or create folder
      * @returns {...} with a message of success upload and file data (id, name, links)
      */
-    uploadImage = async (imageUrl: string, mangaName: string, chapter: string): Promise<PartialDriveUpload> => {
+    uploadImage = async (imageUrl: string, mangaName: string, chapter: number): Promise<PartialDriveUpload> => {
         const service = gdriveConnection.createDriveClient();
         this.folderId = this.folderId || await this.searchFolderToUpload(service, mangaName, chapter);
 
