@@ -33,5 +33,5 @@ class GoogleDriveController {
     };
 }
 
-const driveController = new GoogleDriveController();
-export default driveController;
+const gdriveController = new GoogleDriveController();
+export default gdriveController;

@@ -24,7 +24,9 @@ function loadConfig(): ConfigInfo {
     const { error, value } = configSchema.validate(process.env, { allowUnknown: true });
     console.log('Variables de entorno cargadas');
 
-    if (error) throw error;
+    if (error) {
+        throw error;
+    }
     return { ...value } as ConfigInfo;
 }
 
@@ -38,7 +40,9 @@ function loadDriveConfig(): DriveConfigInfo {
 
     const { error, value } = configSchema.validate(process.env, { allowUnknown: true });
 
-    if (error) throw error;
+    if (error) {
+        throw error;
+    }
     return { ...value } as DriveConfigInfo;
 }
 
