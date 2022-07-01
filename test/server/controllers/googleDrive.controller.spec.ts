@@ -2,9 +2,7 @@ import driveController from '../../../src/server/controllers/googleDrive.control
 import driveService from '../../../src/server/services/googleDrive.service';
 import { EHttpStatusCode } from '../../../src/server/enums/EHttpStatusCode';
 
-jest.mock('../../../src/config', () => ({
-    loadDriveConfig: () => {}
-}));
+jest.mock('../../../src/config');
 
 describe('GoogleDriveController', () => {
     let jsonSpy: any;

@@ -1,8 +1,13 @@
-import driveService from '../../../src/server/services/googleDrive.service';
 import fs from 'fs';
+import driveService from '../../../src/server/services/googleDrive.service';
 
 jest.mock('../../../src/config', () => ({
-    loadDriveConfig: () => {}
+    loadDriveConfig: () => ({
+        GDRIVE_CLIENT_ID: 'some-client-id',
+        GDRIVE_CLIENT_SECRET: 'some-client-secret',
+        GOOGLE_DRIVE_REDIRECT_URI: 'http://some-url.com/',
+        GDRIVE_REFRESH_TOKEN: 'some-refresh-token'
+    })
 }));
 
 describe('GoogleDriveService', () => {
@@ -38,8 +43,8 @@ describe('GoogleDriveService', () => {
 
     });
 
-    // describe('uploadImage', () => {
-    //     
-    // });
+    describe('uploadImage', () => {
+        it('', () => {});
+    });
 
 });

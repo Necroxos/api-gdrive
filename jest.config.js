@@ -10,12 +10,8 @@ module.exports = {
     coverageDirectory: './coverage',
     collectCoverageFrom: [
         "./src/**/*.ts",
-        "!src/config/*.ts",
         "!src/server/enums/*.ts",
         "!src/server/constants/*.ts",
         "!src/server/interfaces/*.ts"
-    ],
-    transformIgnorePatterns: [
-        "src/config/*.ts"
     ]
 };
