@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { EHttpStatusCode } from '../enums/EHttpStatusCode';
+import { EHttpStatusCode } from '../../enums/EHttpStatusCode';
 import driveService from '../services/googleDrive.service';
 
 class GoogleDriveController {

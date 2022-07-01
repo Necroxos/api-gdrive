@@ -1,19 +1,9 @@
 import dotenv from 'dotenv';
 import Joi from 'joi';
+import { ConfigInfo, DriveConfigInfo } from '../interfaces/config';
+
 
 dotenv.config();
-
-interface ConfigInfo {
-    NODE_ENV: string
-    PORT: number
-}
-
-interface DriveConfigInfo {
-    GDRIVE_CLIENT_ID: string
-    GDRIVE_CLIENT_SECRET: string
-    GOOGLE_DRIVE_REDIRECT_URI: string
-    GDRIVE_REFRESH_TOKEN: string
-}
 
 function loadConfig(): ConfigInfo {
     const configSchema = Joi.object<ConfigInfo>({

@@ -1,6 +1,6 @@
-import gdriveController from '../../../src/server/controllers/googleDrive.controller';
+import gdriveController from '../../../src/server/controllers/google-drive.controller';
 import driveService from '../../../src/server/services/googleDrive.service';
-import { EHttpStatusCode } from '../../../src/server/enums/EHttpStatusCode';
+import { EHttpStatusCode } from '../../../src/enums/EHttpStatusCode';
 
 jest.mock('../../../src/config');
 

@@ -4,13 +4,13 @@ import axios from 'axios';
 import randomUseragent from 'random-useragent';
 import { drive_v3 } from 'googleapis';
 // OWN IMPORTS
-import { DEAFULT_UA } from '../constants';
 import gdriveConnection from '../drive';
-import { PartialDriveFile, PartialDriveLink, PartialDriveUpload } from '../interfaces/PartialDrive';
+import { PartialDriveFile, PartialDriveLink, PartialDriveUpload } from '../../interfaces/partial-drive';
 import { capitalizeAll } from '../utils/helpers';
 
 class GoogleDriveService {
     private folderId: string = '';
+    private readonly DEAFULT_UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36';
 
     /**
      * Generate a Http request for get image data
@@ -19,7 +19,7 @@ class GoogleDriveService {
      */
     private readonly getImage = async (url: string): Promise<any> => {
         const RANDOM_UA = randomUseragent.getRandom();
-        const UA = RANDOM_UA || DEAFULT_UA;
+        const UA = RANDOM_UA || this.DEAFULT_UA;
 
         return axios.get(url, {
             responseType: 'stream',
