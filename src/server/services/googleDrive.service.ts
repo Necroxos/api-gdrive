@@ -17,7 +17,7 @@ class GoogleDriveService {
      * @param {string} url image original url
      * @returns {...} with the data of the image
      */
-    private getImage = async (url: string): Promise<any> => {
+    private readonly getImage = async (url: string): Promise<any> => {
         const RANDOM_UA = randomUseragent.getRandom();
         const UA = RANDOM_UA || DEAFULT_UA;
 
@@ -33,7 +33,7 @@ class GoogleDriveService {
      * @param {string} folderName optional parameter with a sub folder name
      * @returns {PartialDriveFile} with the data of the image
      */
-    private async searchFolder(service: drive_v3.Drive, folderName: string = 'Mangas', parentId?: string): Promise<PartialDriveFile | null> {
+    private async searchFolder(service: drive_v3.Drive, folderName = 'Mangas', parentId?: string): Promise<PartialDriveFile | null> {
         const parent = parentId ? `and '${parentId}' in parents` : '';
         const { data } = await service.files.list({
             q: `mimeType='application/vnd.google-apps.folder'
@@ -43,7 +43,7 @@ class GoogleDriveService {
         });
 
         return data.files ? data.files[0] as PartialDriveFile : null;
-    };
+    }
 
     /**
      * Search id of folder on google drive
@@ -96,7 +96,7 @@ class GoogleDriveService {
         });
 
         return file.data as PartialDriveFile;
-    };
+    }
 
     /**
      * Get file by ID of google drive and set it public
@@ -122,7 +122,7 @@ class GoogleDriveService {
         });
 
         return result.data as PartialDriveLink;
-    };
+    }
 
     /**
      * Getting image from url with get request and save it on 'descargas/img.jpg' folder
@@ -170,7 +170,7 @@ class GoogleDriveService {
 
         return { message: 'Imagen Subida', data: { ...file.data, urls: publicImgUrl } } as PartialDriveUpload;
     };
-};
+}
 
 const driveService = new GoogleDriveService();
 export default driveService;

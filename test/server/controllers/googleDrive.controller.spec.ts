@@ -1,4 +1,4 @@
-import driveController from '../../../src/server/controllers/googleDrive.controller';
+import gdriveController from '../../../src/server/controllers/googleDrive.controller';
 import driveService from '../../../src/server/services/googleDrive.service';
 import { EHttpStatusCode } from '../../../src/server/enums/EHttpStatusCode';
 
@@ -27,7 +27,7 @@ describe('GoogleDriveController', () => {
             const expectedResponse = { message: 'Imagen Descargada' };
             const requestParam: any = { query: { imgUrl: 'https://www.example-image.com/some-image.jpeg' } };
             const downloadSpy = jest.spyOn(driveService, 'downloadImage').mockResolvedValueOnce(expectedResponse);
-            await driveController.downloadImage(requestParam, responseParam);
+            await gdriveController.downloadImage(requestParam, responseParam);
 
             const { imgUrl } = requestParam.query;
 
@@ -52,7 +52,7 @@ describe('GoogleDriveController', () => {
                 ]
             };
             const getProductsSpy = jest.spyOn(driveService, 'downloadImage').mockResolvedValueOnce(expectedResponse);
-            await driveController.downloadImage(requestParam, responseParam);
+            await gdriveController.downloadImage(requestParam, responseParam);
 
             expect(getProductsSpy).toHaveBeenCalled();
             expect(getProductsSpy).toHaveBeenCalledWith(requestParam.query.imgUrl);
@@ -67,7 +67,7 @@ describe('GoogleDriveController', () => {
             const downloadSpy = jest.spyOn(driveService, 'downloadImage').mockImplementationOnce(() => {
                 throw errorResponse;
             });
-            await driveController.downloadImage(requestParam, responseParam);
+            await gdriveController.downloadImage(requestParam, responseParam);
 
             expect(downloadSpy).toHaveBeenCalled();
             expect(downloadSpy).toHaveBeenCalledWith('undefined');
@@ -100,7 +100,7 @@ describe('GoogleDriveController', () => {
                 }
             };
             const uploadSpy = jest.spyOn(driveService, 'uploadImage').mockResolvedValueOnce(expectedResponse);
-            await driveController.uploadImage(requestParam, responseParam);
+            await gdriveController.uploadImage(requestParam, responseParam);
 
             const { imgUrl, mangaName, chapter } = requestParam.query;
 
@@ -131,7 +131,7 @@ describe('GoogleDriveController', () => {
                 ]
             };
             const uploadImageSpy = jest.spyOn(driveService, 'uploadImage').mockResolvedValueOnce(expectedResponse);
-            await driveController.uploadImage(requestParam, responseParam);
+            await gdriveController.uploadImage(requestParam, responseParam);
 
             const { imgUrl, mangaName } = requestParam.query;
 
@@ -154,7 +154,7 @@ describe('GoogleDriveController', () => {
             const uploadSpy = jest.spyOn(driveService, 'uploadImage').mockImplementationOnce(() => {
                 throw errorResponse;
             });
-            await driveController.uploadImage(requestParam, responseParam);
+            await gdriveController.uploadImage(requestParam, responseParam);
 
             const { imgUrl, mangaName, chapter } = requestParam.query;
 

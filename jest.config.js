@@ -6,16 +6,16 @@ module.exports = {
     roots: ['test'],
     bail: 1,
     verbose: true,
-    collectCoverageFrom: ['**/*.{ts,tsx}', '!**/node_modules/**'],
     coverageDirectory: './coverage',
     collectCoverageFrom: [
-        "./src/**/*.ts",
-        "!src/config/*.ts",
+        "./src/**/*.{ts,tsx}",
+        '!**/node_modules/**',
+        "!src/server/api/*.ts",
         "!src/server/enums/*.ts",
+        "!src/server/routes/*.ts",
+        "!src/server/models/*.ts",
         "!src/server/constants/*.ts",
-        "!src/server/interfaces/*.ts"
-    ],
-    transformIgnorePatterns: [
-        "src/config/*.ts"
+        "!src/server/interfaces/*.ts",
+        "!src/server/middlewares/*.ts"
     ]
 };
