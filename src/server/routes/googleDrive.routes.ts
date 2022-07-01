@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import validate from '../middlewares/validate';
-import gdriveController from '../controllers/googleDrive.controller';
+import gdriveController from '../controllers/google-drive.controller';
 import paramsValidator from '../middlewares/query-validate';
 
 class GoogleDriveRoutes {
