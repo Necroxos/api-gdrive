@@ -10,8 +10,10 @@ module.exports = {
     collectCoverageFrom: [
         "./src/**/*.{ts,tsx}",
         '!**/node_modules/**',
-        "!src/server/api/*.ts",
+        "!src/*.ts",
+        "!./*",
         "!src/enums/*.ts",
+        "!src/server/api/*.ts",
         "!src/interfaces/*.ts",
         "!src/server/routes/*.ts",
         "!src/server/models/*.ts",
