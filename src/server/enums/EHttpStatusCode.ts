@@ -5,4 +5,4 @@ export enum EHttpStatusCode {
     BadRequest = 400,
     NotFound = 404,
     UnprocessableEntity = 422
-}
+};

@@ -1,6 +1,6 @@
 import { check } from 'express-validator';
 
-class ParamsValidator {
+class QueryValidator {
 
     public imageUrlValidationRule = () => (
         check('imgUrl').isString().isLength({ min: 15 })
@@ -17,5 +17,5 @@ class ParamsValidator {
     );
 }
 
-const paramsValidator = new ParamsValidator();
+const paramsValidator = new QueryValidator();
 export default paramsValidator;
