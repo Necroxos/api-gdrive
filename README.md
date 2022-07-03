@@ -1,6 +1,6 @@
-# Walmart challenge backend
+# API Google Drive Backend
 
-Aplicación de node - Typescript para funcionar como API conectado a MongoDB.
+Aplicación de node - Typescript para funcionar como API conectado a Google Drive.
 
 
 # Comandos
