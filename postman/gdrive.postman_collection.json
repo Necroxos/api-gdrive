@@ -1,0 +1,144 @@
+{
+	"info": {
+		"_postman_id": "eb68bc5c-c172-41d5-aafc-3dc28fc11c54",
+		"name": "API GDrive",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20322042"
+	},
+	"item": [
+		{
+			"name": "Google Drive",
+			"item": [
+				{
+					"name": "Google Drive Download",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_backend}}/api/gdrive/download?imgUrl=https://www.normaeditorial.com/upload/media/albumes/0001/19/a62f366fb2a0a4526d1e9eef2983ddc0042a8e3b.jpeg",
+							"host": [
+								"{{url_backend}}"
+							],
+							"path": [
+								"api",
+								"gdrive",
+								"download"
+							],
+							"query": [
+								{
+									"key": "imgUrl",
+									"value": "https://www.normaeditorial.com/upload/media/albumes/0001/19/a62f366fb2a0a4526d1e9eef2983ddc0042a8e3b.jpeg"
+								},
+								{
+									"key": "imgUrl",
+									"value": "https://img1.indalchef.com/uploads/20211229/827da8c31e659309d27dde7521ab26df/9ba81ab1.jpg",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Google Drive Upload",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_backend}}/api/gdrive/upload?imgUrl=https://www.normaeditorial.com/upload/media/albumes/0001/19/a62f366fb2a0a4526d1e9eef2983ddc0042a8e3b.jpeg&mangaName=Solo leveling&chapter=1",
+							"host": [
+								"{{url_backend}}"
+							],
+							"path": [
+								"api",
+								"gdrive",
+								"upload"
+							],
+							"query": [
+								{
+									"key": "imgUrl",
+									"value": "https://www.normaeditorial.com/upload/media/albumes/0001/19/a62f366fb2a0a4526d1e9eef2983ddc0042a8e3b.jpeg"
+								},
+								{
+									"key": "imgUrl",
+									"value": "https://img1.recipesandcook.com/uploads/20211124/6ab4f7a9c54bc3cbd7c911ec2a2738c4/d2ea45db.jpg",
+									"disabled": true
+								},
+								{
+									"key": "mangaName",
+									"value": "Solo leveling"
+								},
+								{
+									"key": "chapter",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Server",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_backend}}/",
+					"host": [
+						"{{url_backend}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_backend}}/api",
+					"host": [
+						"{{url_backend}}"
+					],
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url_backend",
+			"value": "http://127.0.0.1:3001",
+			"type": "string"
+		}
+	]
+}
