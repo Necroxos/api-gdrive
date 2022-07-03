@@ -1,8 +1,8 @@
 import { google } from 'googleapis';
-import { loadDriveConfig } from '../../config';
+import loadConfig from '../../config';
 
 export class GoogleDriveConnection {
-    private readonly appConfig = loadDriveConfig();
+    private readonly appConfig = loadConfig.driveConfig();
 
     createDriveClient() {
         const clientId = this.appConfig.GDRIVE_CLIENT_ID;

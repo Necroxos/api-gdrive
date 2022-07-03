@@ -4,7 +4,7 @@ import axios from 'axios';
 import randomUseragent from 'random-useragent';
 import { drive_v3 } from 'googleapis';
 // OWN IMPORTS
-import gdriveConnection from '../drive';
+import gdriveConnection from '../connection';
 import { PartialDriveFile, PartialDriveLink, PartialDriveUpload } from '../../interfaces/partial-drive';
 import { capitalizeAll } from '../utils/helpers';
 

@@ -3,7 +3,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import cors from 'cors';
 import apiRoutes from './server/api';
-import { loadConfig } from './config';
+import loadConfig from './config';
 import compression from 'compression';
 
 class Server {
@@ -16,7 +16,7 @@ class Server {
     }
 
     config() {
-        const appConfig = loadConfig();
+        const appConfig = loadConfig.appConfig();
         // Settings
         this.app.set('port', appConfig.PORT);
         // Middlewares
