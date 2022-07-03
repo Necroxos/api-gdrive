@@ -1,8 +1,9 @@
 import { Router } from 'express';
 import validate from '../middlewares/validate';
-import driveController from '../controllers/googleDrive.controller';
+import gdriveController from '../controllers/google-drive.controller';
+import paramsValidator from '../middlewares/query-validate';
 
-class ProductRoutes {
+class GoogleDriveRoutes {
     public router: Router;
 
     constructor() {
@@ -11,10 +12,11 @@ class ProductRoutes {
     }
 
     routes() {
-        this.router.get('/download', validate, driveController.downloadImage);
-        this.router.get('/upload', validate, driveController.uploadImage);
+        this.router.get('/download', paramsValidator.imageUrlValidationRule(), validate, gdriveController.downloadImage);
+        this.router.get('/upload', paramsValidator.imageUrlValidationRule(), paramsValidator.folderValidationRules(),
+            validate, gdriveController.uploadImage);
     }
 }
 
-const productRoutes = new ProductRoutes();
-export default productRoutes.router;
+const gdriveRoutes = new GoogleDriveRoutes();
+export default gdriveRoutes.router;

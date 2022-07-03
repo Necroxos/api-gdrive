@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { EHttpStatusCode } from '../enums/EHttpStatusCode';
+import { EHttpStatusCode } from '../../enums/EHttpStatusCode';
 import driveService from '../services/googleDrive.service';
 
 class GoogleDriveController {
@@ -7,9 +7,9 @@ class GoogleDriveController {
     public downloadImage = async (req: Request, res: Response) => {
         try {
             let { imgUrl } = req.query;
-            imgUrl = !!imgUrl ? String(imgUrl) : '';
+            imgUrl = String(imgUrl);
 
-            const image = await driveService.downloadFile(imgUrl);
+            const image = await driveService.downloadImage(imgUrl);
             return res.status(EHttpStatusCode.Ok).json(image);
 
         } catch (error) {
@@ -20,11 +20,11 @@ class GoogleDriveController {
     public uploadImage = async (req: Request, res: Response) => {
         try {
             let { imgUrl, mangaName, chapter } = req.query;
-            imgUrl = !!imgUrl ? String(imgUrl) : '';
-            mangaName = !!mangaName ? String(mangaName) : '';
-            chapter = !!chapter ? String(chapter) : '';
+            imgUrl = String(imgUrl);
+            mangaName = String(mangaName);
+            const chapterNumber = Number(chapter);
 
-            const image = await driveService.uploadImage(imgUrl, mangaName, chapter);
+            const image = await driveService.uploadImage(imgUrl, mangaName, chapterNumber);
             return res.status(EHttpStatusCode.Ok).json(image);
 
         } catch (error) {
@@ -33,5 +33,5 @@ class GoogleDriveController {
     };
 }
 
-const driveController = new GoogleDriveController();
-export default driveController;
+const gdriveController = new GoogleDriveController();
+export default gdriveController;

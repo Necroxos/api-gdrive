@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
 import indexRoutes from '../routes/routes';
-import { EHttpStatusCode } from '../enums/EHttpStatusCode';
+import { EHttpStatusCode } from '../../enums/EHttpStatusCode';
 
 class API {
     public router: Router;
