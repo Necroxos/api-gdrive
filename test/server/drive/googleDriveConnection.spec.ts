@@ -1,13 +1,4 @@
-import gdriveConnection from '../../../src/server/drive/index';
-
-jest.mock('../../../src/config', () => ({
-    loadDriveConfig: () => ({
-        GDRIVE_CLIENT_ID: 'some-client-id',
-        GDRIVE_CLIENT_SECRET: 'some-client-secret',
-        GOOGLE_DRIVE_REDIRECT_URI: 'http://some-url.com/',
-        GDRIVE_REFRESH_TOKEN: 'some-refresh-token'
-    })
-}));
+import gdriveConnection from '../../../src/server/connection';
 
 describe('GoogleDriveConnection', () => {
 

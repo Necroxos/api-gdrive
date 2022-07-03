@@ -1,22 +1,18 @@
 import { ValidationError } from 'joi';
-import { loadConfig, loadDriveConfig } from '../../src/config';
+import loadConfig from '../../src/config';
 
 describe('config', () => {
+    const OLD_ENV = process.env;
+
     beforeEach(() => {
         jest.resetModules();
-        process.env.NODE_ENV = 'development';
-        process.env.PORT = '3000';
-        process.env.GDRIVE_API_KEY = 'some-api-key';
-        process.env.GDRIVE_CLIENT_ID = 'some-client-id';
-        process.env.GDRIVE_CLIENT_SECRET = 'some-client-secret';
-        process.env.GOOGLE_DRIVE_REDIRECT_URI = 'http://some-url.com/';
-        process.env.GDRIVE_REFRESH_TOKEN = 'some-refresh-token';
+        process.env = { ...OLD_ENV };
     });
 
     describe('loadConfig', () => {
 
         it('should return app config', () => {
-            const result = loadConfig();
+            const result = loadConfig.appConfig();
 
             expect(result.NODE_ENV).toEqual('development');
             expect(result.PORT).toEqual(3000);
@@ -26,7 +22,7 @@ describe('config', () => {
             process.env.NODE_ENV = 'test';
 
             try {
-                loadConfig();
+                loadConfig.appConfig();
             } catch (error: any) {
                 const err = (error as ValidationError).details[0];
                 expect(err.message).toEqual('"NODE_ENV" must be one of [development, production]');
@@ -37,7 +33,7 @@ describe('config', () => {
             process.env.PORT = 'test';
 
             try {
-                loadConfig();
+                loadConfig.appConfig();
             } catch (error: any) {
                 const err = (error as ValidationError).details[0];
                 expect(err.message).toEqual('"PORT" must be a number');
@@ -49,7 +45,7 @@ describe('config', () => {
     describe('loadDriveConfig', () => {
 
         it('should return google drive config', () => {
-            const result = loadDriveConfig();
+            const result = loadConfig.driveConfig();
 
             expect(result.GDRIVE_CLIENT_ID).toEqual('some-client-id');
             expect(result.GDRIVE_CLIENT_SECRET).toEqual('some-client-secret');
@@ -62,7 +58,7 @@ describe('config', () => {
             process.env.GDRIVE_CLIENT_SECRET = '';
 
             try {
-                loadDriveConfig();
+                loadConfig.driveConfig();
             } catch (error: any) {
                 const err = (error as ValidationError).details[0];
                 expect(err.message).toEqual('"GDRIVE_CLIENT_ID" is not allowed to be empty');

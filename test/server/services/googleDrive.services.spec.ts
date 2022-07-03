@@ -1,16 +1,18 @@
 import fs from 'fs';
 import driveService from '../../../src/server/services/googleDrive.service';
-import gdriveConnection from '../../../src/server/drive/index';
+import gdriveConnection from '../../../src/server/connection';
 import * as helpers from '../../../src/server/utils/helpers';
-
-jest.mock('../../../src/config', () => ({
-    loadDriveConfig: () => ({
-        GDRIVE_CLIENT_ID: 'some-client-id',
-        GDRIVE_CLIENT_SECRET: 'some-client-secret',
-        GOOGLE_DRIVE_REDIRECT_URI: 'http://some-url.com/',
-        GDRIVE_REFRESH_TOKEN: 'some-refresh-token'
-    })
-}));
+import { PartialDriveUpload } from '../../../src/interfaces/partial-drive';
+import {
+    imgUrl,
+    mangaName,
+    chapter,
+    createFileId,
+    imgName,
+    publicUrls,
+    createFolderToUpload,
+    foundFolderToUpload
+} from './gdriveConnection.mock';
 
 jest.mock('random-useragent', () => ({
     getRandom: () => ('Random UA')
@@ -22,52 +24,11 @@ jest.mock('axios', () => ({
 }));
 
 describe('GoogleDriveService', () => {
-    const imgUrl = 'https://www.example-image.com/some-image.jpeg';
-    const mangaName = 'Test manga';
-    const chapter = 1;
-    const createFileId = 'some-id';
-    const imgName = 'image.jpg';
-    const publicUrls = {
-        webViewLink: 'http://www.drive.example.com/uc?id=createFileId&export=download',
-        webContentLink: 'https://drive.example.com/file/d/createFileId/view?usp=drivesdk'
-    };
 
-
-    beforeEach(() => {
+    describe('downloadImage', () => {
         fs.createWriteStream = jest.fn().mockImplementation(() => ({
             on: jest.fn()
         }));
-        gdriveConnection.createDriveClient = jest.fn().mockImplementation(() => ({
-            files: {
-                create: jest.fn().mockImplementationOnce(() => ({
-                    data: { id: createFileId, name: imgName }
-                })),
-                get: jest.fn().mockImplementationOnce(() => ({
-                    data: publicUrls
-                })),
-                list: jest.fn().mockImplementationOnce(() => ({
-                    data: {
-                        files: [
-                            { id: 'some-list-id', name: mangaName }
-                        ]
-                    }
-                })).mockImplementationOnce(() => ({
-                    data: {
-                        files: [
-                            { id: 'other-list-id', name: `Chapter ${chapter}` }
-                        ]
-                    }
-                })),
-            },
-            permissions: { create: jest.fn() }
-        }));
-    });
-
-    afterEach(() => {
-        jest.clearAllMocks();
-    });
-
-    describe('downloadImage', () => {
 
         it('should return object with message "Imagen Descargada"', async () => {
             const expectedResponse = { message: 'Imagen Descargada' };
@@ -84,26 +45,63 @@ describe('GoogleDriveService', () => {
     });
 
     describe('uploadImage', () => {
-        it('should return object with drive file data', async () => {
-            const expectedResponse = {
-                message: 'Imagen Subida',
-                data: {
-                    id: createFileId,
-                    name: imgName,
-                    urls: publicUrls
-                }
-            };
+        let capitalizeSpy: jest.SpyInstance;
+        let getImageSpy: jest.SpyInstance;
+        let publicUrlSpy: jest.SpyInstance;
 
-            const capitalizeSpy = jest.spyOn(helpers, 'capitalizeAll');
-            const getImageSpy = jest.spyOn(driveService as any, 'getImage');
-            const publicUrlSpy = jest.spyOn(driveService as any, 'generatePublicUrl');
+        beforeEach(() => {
+            capitalizeSpy = jest.spyOn(helpers, 'capitalizeAll');
+            getImageSpy = jest.spyOn(driveService as any, 'getImage');
+            publicUrlSpy = jest.spyOn(driveService as any, 'generatePublicUrl');
+        });
 
-            const result = await driveService.uploadImage(imgUrl, mangaName, chapter);
+        const expectedResponse = {
+            message: 'Imagen Subida',
+            data: {
+                id: createFileId,
+                name: imgName,
+                urls: publicUrls
+            }
+        };
+
+        const expectedResults = (
+            getImageSpy: jest.SpyInstance,
+            publicUrlSpy: jest.SpyInstance,
+            result: PartialDriveUpload,
+        ) => {
             expect(getImageSpy).toHaveBeenCalled();
             expect(publicUrlSpy).toHaveBeenCalled();
-            expect(capitalizeSpy).toHaveBeenCalled();
             expect(result).toEqual(expectedResponse);
+        };
+
+        it('should return object with drive file data and use searchFolderToUpload', async () => {
+            gdriveConnection.createDriveClient = foundFolderToUpload;
+
+            const result = await driveService.uploadImage(imgUrl, mangaName, chapter);
+            expect(capitalizeSpy).toHaveBeenCalledTimes(1);
+            expectedResults(getImageSpy, publicUrlSpy, result);
         });
+
+        it('should return object with drive file data and use folderId variable', async () => {
+            gdriveConnection.createDriveClient = foundFolderToUpload;
+
+            const result = await driveService.uploadImage(imgUrl, mangaName, chapter);
+            expect(capitalizeSpy).toHaveBeenCalledTimes(0);
+            expectedResults(getImageSpy, publicUrlSpy, result);
+        });
+
+        it('should return object with drive file data and create manga folder at searchFolderToUpload', async () => {
+            gdriveConnection.createDriveClient = createFolderToUpload;
+            (driveService as any).folderId = '';
+
+            const result = await driveService.uploadImage(imgUrl, mangaName, chapter);
+            expect(capitalizeSpy).toHaveBeenCalledTimes(1);
+            expectedResults(getImageSpy, publicUrlSpy, result);
+        });
+    });
+
+    afterEach(() => {
+        jest.clearAllMocks();
     });
 
 });

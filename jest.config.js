@@ -7,6 +7,7 @@ module.exports = {
     bail: 1,
     verbose: true,
     coverageDirectory: './coverage',
+    setupFiles: ['./test/config/env.mock.ts'],
     collectCoverageFrom: [
         "./src/**/*.{ts,tsx}",
         '!**/node_modules/**',
